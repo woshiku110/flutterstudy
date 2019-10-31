@@ -54,12 +54,12 @@ class BottomNavigation extends StatelessWidget{
           fixedColor: Colors.deepPurple,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                title: Text("Home"),
-                icon:Icon(Icons.home)
+                title: Text("WIDGET"),
+                icon:Icon(Icons.widgets)
             ),
             BottomNavigationBarItem(
-                title: Text("List"),
-                icon:Icon(Icons.message)
+                title: Text("组件收藏"),
+                icon:Icon(Icons.favorite)
             )
           ],);
     }
