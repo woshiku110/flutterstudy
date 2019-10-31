@@ -1,77 +1,66 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-class Home extends StatefulWidget {
-  Home({Key key, this.title}) : super(key: key);
+import 'package:flutterstudy/pages/home_page_one.dart';
+import 'package:flutterstudy/pages/home_page_two.dart';
+class Home extends StatefulWidget{
   final String title;
+  Home({Key key,this.title}):super(key:key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<StatefulWidget> createState()=>_Home();
 }
 
-class BottomNavigationBarFullDefault extends StatefulWidget{
-
-  const BottomNavigationBarFullDefault():super();
-
-  @override
-  State<StatefulWidget> createState()=>_BottomNavigationBarFullDefault();
-}
-
-class _BottomNavigationBarFullDefault extends State{
-  int _currentIndex = 0;
-  void _onItemTapped(int index){
-    if(mounted){
-      setState(() {
-        _currentIndex = index;
-      });
-    }
+class _Home extends State<Home>{
+  int currentIndex = 0;
+  _onCurrentIndexChange(int index){
+    setState(() {
+      currentIndex = index;
+    });
+    print("currentIndex: "+ index.toString());
   }
+  List<Widget> list= [
+        HomePageOne(),
+        HomePageTwo()
+  ];
   @override
   Widget build(BuildContext context) {
-
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      iconSize: 24,
-      currentIndex: _currentIndex,
-      onTap: _onItemTapped,
-      fixedColor: Colors.deepPurple,
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          title: Text("Home"),
-          icon:Icon(Icons.home)
-        ),
-        BottomNavigationBarItem(
-            title: Text("List"),
-            icon:Icon(Icons.message)
-        )
-      ],
-    );
-  }
-
-}
-
-class _MyHomePageState extends State<Home> {
-  int _counter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      bottomNavigationBar: BottomNavigationBarFullDefault(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigation(currentIndex: currentIndex, onCurrentIndexChange: this._onCurrentIndexChange),
+      body: list[currentIndex],
     );
   }
+}
+
+
+class BottomNavigation extends StatelessWidget{
+  final currentIndex;
+  final ValueChanged<int> onCurrentIndexChange;
+  BottomNavigation({Key key,@required this.currentIndex,@required this.onCurrentIndexChange}): super(key:key);
+
+  void _handleTap (index){
+      onCurrentIndexChange(index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+        return BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          iconSize: 24,
+          currentIndex: currentIndex,
+          onTap: _handleTap,
+          fixedColor: Colors.deepPurple,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                title: Text("Home"),
+                icon:Icon(Icons.home)
+            ),
+            BottomNavigationBarItem(
+                title: Text("List"),
+                icon:Icon(Icons.message)
+            )
+          ],);
+    }
 }

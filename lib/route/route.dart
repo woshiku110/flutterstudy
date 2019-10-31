@@ -6,7 +6,7 @@ class Routes{
     static void configureRoutes(Router router){
         //主页
         router.define('/', handler:  new Handler(handlerFunc:(context,params){
-            return new Home(title: 'homeTest',);
+            return new Home(title: 'test',);
         } ));
         router.define('/test', handler:  new Handler(handlerFunc:(context,params){
             return new Test(title: 'testTest',);
