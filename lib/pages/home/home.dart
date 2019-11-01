@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutterstudy/pages/home_page_one.dart';
-import 'package:flutterstudy/pages/home_page_two.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterstudy/pages/home/widget.dart';
+import 'package:flutterstudy/pages/home/home_page_two.dart';
 class Home extends StatefulWidget{
   final String title;
   Home({Key key,this.title}):super(key:key);
@@ -19,11 +18,12 @@ class _Home extends State<Home>{
     print("currentIndex: "+ index.toString());
   }
   List<Widget> list= [
-        HomePageOne(),
+        WidgetComponent(),
         HomePageTwo()
   ];
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     return new Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -51,7 +51,7 @@ class BottomNavigation extends StatelessWidget{
           iconSize: 24,
           currentIndex: currentIndex,
           onTap: _handleTap,
-          fixedColor: Colors.deepPurple,
+          fixedColor: Color.fromRGBO(0,150,239, 1.0),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 title: Text("WIDGET"),
