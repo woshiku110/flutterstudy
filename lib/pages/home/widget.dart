@@ -16,11 +16,11 @@ class _Widget extends State<WidgetComponent>{
       height: double.infinity,
       color: Color.fromARGB(255, 241,238,239),
       child: Scrollbar(
-          child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(children: [WidgetItem()])
+              child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(children: [WidgetItem()])
+              )
           )
-      )
     );
   }
 }
@@ -40,7 +40,8 @@ class _WidgetItem extends State<WidgetItem>{
     return Container(
             width: double.infinity,
             child: Column(
-              children: <Widget>[WidgetItemTitle(title: titleName,icon: titleIcon)],
+              children: <Widget>[WidgetItemTitle(title: titleName,icon: titleIcon),
+                WidgetItemContent()],
             ),
     );
   }
@@ -102,35 +103,42 @@ class WidgetItemTitle extends StatelessWidget{
 class IconData {
     var name;
     var icon;
-    IconData(name,icon){
+    int index;
+    IconData(name,icon,index){
       this.name = name;
       this.icon = icon;
+      this.index = index;
     }
 }
 
 class WidgetItemContent extends StatelessWidget{
   final List<IconData> _list = [
-    new IconData('t1', Icons.access_alarms),
-    new IconData('t2', Icons.access_time),
-    new IconData('t3', Icons.ac_unit),
-    new IconData('t3', Icons.accessibility_new),
+    new IconData('Form', Icons.access_alarms,0),
+    new IconData('Frame', Icons.access_time,1),
+    new IconData('Media', Icons.ac_unit,2),
   ];
   @override
   Widget build(BuildContext context) {
-    return  GridView.count(
-              crossAxisCount: 3,
-              childAspectRatio: 1,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 5,
-        children: <Widget>[
-          Image.network("https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1333189478,4259049031&fm=173&app=25&f=JPEG?w=640&h=640&s=6BA43A6238B07BA77D3C7CC60000E0E1",width: 100,height: 180,),
-          Image.network("https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1333189478,4259049031&fm=173&app=25&f=JPEG?w=640&h=640&s=6BA43A6238B07BA77D3C7CC60000E0E1",width: 100,height: 180,),
-          Image.network("https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1333189478,4259049031&fm=173&app=25&f=JPEG?w=640&h=640&s=6BA43A6238B07BA77D3C7CC60000E0E1",width: 100,height: 180,),
-          Image.network("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1147110391,1099568746&fm=173&app=25&f=JPEG?w=640&h=640&s=4BA43A625AFA7BAF7D302CC60000A0A1",width: 100,height: 180,),
-          Image.network("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1147110391,1099568746&fm=173&app=25&f=JPEG?w=640&h=640&s=4BA43A625AFA7BAF7D302CC60000A0A1",width: 100,height: 180,),
-          Image.network("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1147110391,1099568746&fm=173&app=25&f=JPEG?w=640&h=640&s=4BA43A625AFA7BAF7D302CC60000A0A1",width: 100,height: 180,),
-          Image.network("https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1147110391,1099568746&fm=173&app=25&f=JPEG?w=640&h=640&s=4BA43A625AFA7BAF7D302CC60000A0A1",width: 100,height: 180,),
-        ],
-    );
+    return GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 0.8,
+        shrinkWrap: true,
+        children: _list.map((item)=> Container(
+                      height: Size.setHeight(100),
+                      margin: EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: item.index == 1 ? Border(left:BorderSide(color: Colors.grey,width: 0.5),right: BorderSide(color: Colors.grey,width: 0.5)):null,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[Icon(item.icon,size: 50,),Text(item.name,style: TextStyle(
+                            fontSize: 24.0,
+                            color: Color.fromRGBO(0,134,134,134)
+                        ))],
+                      ),
+        )).toList(),
+      );
   }
 }

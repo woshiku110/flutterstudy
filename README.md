@@ -1,16 +1,8 @@
 # flutterstudy
 
-A new Flutter application.
+用于学习flutter开发，里面包含常用ui开发,路由学习，页面状态管理开发。
 
-## Getting Started
+## UI页面
+目前处于开发阶断，内容在不断增加...
+![avatar](./Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20Max%20-%202019-11-05%20at%2013.24.12.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
