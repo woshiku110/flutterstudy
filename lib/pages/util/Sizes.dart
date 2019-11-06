@@ -1,6 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Size{
+class Sizes{
   static  setWidth(double width){
     return ScreenUtil.getInstance().setWidth(width);
   }

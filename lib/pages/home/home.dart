@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterstudy/pages/home/widget.dart';
+import 'package:flutterstudy/pages/home/widget/widget.dart';
 import 'package:flutterstudy/pages/home/home_page_two.dart';
 class Home extends StatefulWidget{
   final String title;
