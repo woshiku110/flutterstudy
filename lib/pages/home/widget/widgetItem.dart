@@ -7,7 +7,8 @@ class WidgetItem extends StatelessWidget{
   final titleName;
   final titleIcon;
   final List<FormData> list;
-  WidgetItem({Key key,@required this.titleName,@required this.titleIcon,@required this.list}):super(key:key);
+  final ValueChanged<FormData> onCurrentIndexChange;
+  WidgetItem({Key key,@required this.titleName,@required this.titleIcon,@required this.list,@required this.onCurrentIndexChange}):super(key:key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +18,7 @@ class WidgetItem extends StatelessWidget{
           Container(
             color: Colors.white,
             padding: EdgeInsets.only(top:Sizes.setHeight(20),bottom: Sizes.setHeight(20)),
-            child: WidgetItemContent(list: list)
+            child: WidgetItemContent(list: list,onCurrentIndexChange: onCurrentIndexChange,)
           )],
       ),
     );
@@ -81,7 +82,11 @@ class WidgetItemTitle extends StatelessWidget{
 
 class WidgetItemContent extends StatelessWidget{
   final List<FormData> list;
-  WidgetItemContent({Key key,@required this.list}):super(key:key);
+  final ValueChanged<FormData> onCurrentIndexChange;
+  WidgetItemContent({Key key,@required this.list,@required this.onCurrentIndexChange}):super(key:key);
+  void _handleTap(FormData formData){
+    this.onCurrentIndexChange(formData);
+  }
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -90,7 +95,6 @@ class WidgetItemContent extends StatelessWidget{
       childAspectRatio: 0.8,
       shrinkWrap: true,
       children: list.asMap().keys.map((index)=> Container(
-
         height: Sizes.setHeight(100),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -106,14 +110,19 @@ class WidgetItemContent extends StatelessWidget{
               :
               null
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[list[index].icon == null ? Text(""): Icon(list[index].icon,size: 50,color:  Color.fromRGBO(0,150,239, 1.0),),Text(list[index].name,style: TextStyle(
-              fontSize: 24.0,
-              color: Colors.grey
-          ))],
-        ),
+        child: GestureDetector(
+          onTap: ()=>this._handleTap(list[index]),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[list[index].icon == null ? Text(""): Icon(list[index].icon,size: 50,color:  Color.fromRGBO(0,150,239, 1.0),),Text(list[index].name,style: TextStyle(
+                  fontSize: 24.0,
+                  color: Colors.grey
+              ))],
+            ),
+          ),
+        )
       )).toList(),
     );
   }

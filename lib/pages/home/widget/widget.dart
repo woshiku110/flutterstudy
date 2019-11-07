@@ -32,6 +32,11 @@ class WidgetComponent extends StatefulWidget{
       new FormData('Cupertino', Icons.mobile_screen_share,1),
     ])
   ];
+
+  _onItemClick(FormData formData){
+    print('list:\t'+formData.toString());
+  }
+
   @override
   State<StatefulWidget> createState() {
     return _Widget();
@@ -56,7 +61,7 @@ class _Widget extends State<WidgetComponent>{
                                 (widgetData)=>
                                 WidgetItem(titleName: widgetData.title,
                                   titleIcon: widgetData.icon,
-                                  list: widgetData.list,)
+                                  list: widgetData.list,onCurrentIndexChange: widget._onItemClick,)
                         ).toList()
                     ),
                   )
