@@ -1,13 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutterstudy/domain/FormData.dart';
+import 'package:flutterstudy/domain/FormPassData.dart';
 import 'package:flutterstudy/pages/util/Sizes.dart';
 
 class WidgetItem extends StatelessWidget{
   final titleName;
   final titleIcon;
   final List<FormData> list;
-  final ValueChanged<FormData> onCurrentIndexChange;
+  final ValueChanged<FormPassData> onCurrentIndexChange;
   WidgetItem({Key key,@required this.titleName,@required this.titleIcon,@required this.list,@required this.onCurrentIndexChange}):super(key:key);
   @override
   Widget build(BuildContext context) {
@@ -82,10 +83,10 @@ class WidgetItemTitle extends StatelessWidget{
 
 class WidgetItemContent extends StatelessWidget{
   final List<FormData> list;
-  final ValueChanged<FormData> onCurrentIndexChange;
+  final ValueChanged<FormPassData> onCurrentIndexChange;
   WidgetItemContent({Key key,@required this.list,@required this.onCurrentIndexChange}):super(key:key);
-  void _handleTap(FormData formData){
-    this.onCurrentIndexChange(formData);
+  void _handleTap(BuildContext buildContext,FormData formData){
+    this.onCurrentIndexChange(new FormPassData(buildContext, formData));
   }
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,7 @@ class WidgetItemContent extends StatelessWidget{
               null
         ),
         child: GestureDetector(
-          onTap: ()=>this._handleTap(list[index]),
+          onTap: ()=>this._handleTap(context,list[index]),
           child: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

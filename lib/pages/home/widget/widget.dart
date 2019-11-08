@@ -1,8 +1,14 @@
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterstudy/domain/FormData.dart';
+import 'package:flutterstudy/domain/FormPassData.dart';
 import 'package:flutterstudy/domain/WidgetData.dart';
-import 'package:flutterstudy/pages/home/widget/widgetItem.dart';
+import 'package:flutterstudy/pages/home/widget/item/widgetItem.dart';
 import 'package:flutterstudy/pages/util/Sizes.dart';
+import 'package:flutterstudy/route/route.dart';
 class WidgetComponent extends StatefulWidget{
   final List<WidgetData> widgetDatas = [
     new WidgetData("Element", Icons.euro_symbol, [
@@ -33,13 +39,22 @@ class WidgetComponent extends StatefulWidget{
     ])
   ];
 
-  _onItemClick(FormData formData){
-    print('list:\t'+formData.toString());
-  }
-
   @override
   State<StatefulWidget> createState() {
     return _Widget();
+  }
+
+  _onItemClick(FormPassData formPassData){
+    var passData = {
+        'name': formPassData.formData.name,
+        //'data':formPassData.formData
+    };
+    String jsonStr = jsonEncode(passData);
+    String jsonBytes = jsonEncode(Utf8Encoder().convert(jsonStr));
+    Routes.router.navigateTo(formPassData.buildContext,
+        '${Routes.widgetList}?message=$jsonBytes',
+        transition: TransitionType.inFromRight);
+    print('list:\t'+jsonStr);
   }
 }
 class _Widget extends State<WidgetComponent>{
